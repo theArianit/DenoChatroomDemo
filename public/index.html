@@ -6,14 +6,35 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Awesome Chat</title>
-    <style>
-    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style/style.css" type="text/css">
 </head>
 
 <body>
+    <div class="container">
     <h1>Awesome Chat</h1>
 
+    <form class="name-form">
+        <input type="text" name="nickname" placeholder="Choose Nickname" required>
+        <button>Enter Chat</button>
+    </form>
+    
+    <div class="chatroom hidden">
+        <ul class="chat-list">
+            <li>
+                <div class="user-name">yoshi</div>
+                <div class="user-chat">oi man</div>
+            </li>
+        </ul>
+    
+        <form class="chat-form">
+            <input type="text" name="message" placeholder="Type message..." required>
+            <button>Send</button>
+        </form>
+    </div>
+    </div>
     <script></script>
 </body>
-
 </html>
