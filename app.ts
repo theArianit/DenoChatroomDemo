@@ -12,7 +12,7 @@
 //     }
 // }
 
-import {Application} from "https://deno.land/x/oak@v10.6.0/mod.ts";
+import { Application } from "./moduledeps.ts"
 
 const app = new Application();
 
