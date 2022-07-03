@@ -7,11 +7,16 @@ Some updates and changes are made since the tutorial is made before the official
 <br>
 <h4>Lock modules</h4>
 <p>
+ To check if the module files have been compromised.
+</p>
+<p>
 bash command: deno cache --lock=[filenametocreate].json --lock-write [filefromwheretolock]
+<br>
 example: deno cache --lock=lock.json --lock-write moduledeps.ts
 This will create the lock file.
 </p>
 <p>
 Compare/Check the lock file keys: deno cache --reload (optional to force deno) --lock=[lockfilename] [filetocheckkeys]
+<br>
 example: deno cache --reload --lock=lock.json moduledeps.ts
 </p>

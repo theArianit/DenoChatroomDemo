@@ -1,16 +1,34 @@
-import { Application } from "./moduledeps.ts"
+import { serve } from "./moduledeps.ts";
 
-const app = new Application();
+// serve((req: Request) => new Response(req.url));
 
-app.use(async (ctx, next) => {
-    try{
-        await ctx.send({
-            root: `${Deno.cwd()}/public`,
-            index:"index.html",
+async function handler(req: Request): Promise<Response> {
+    const url = new URL(req.url);
+
+    console.log("Path:", url);
+  
+    if(url.pathname==='/styling/style.css'){
+        const styleFile = await Deno.readFile("./public/styling/style.css");
+        return new Response(styleFile,{
+            headers:{
+                "content-type": "text/css",
+            }
         });
-    }catch{
-        await next();
     }
-});
 
-await app.listen({ port: 8000 });
+    if(url.pathname === '/'){
+        const file = await Deno.readFile("./public/index.html");
+        return new Response(file,{
+            status: 200,
+            headers: {
+                "content-type": "text/html"
+            }
+        });
+    }
+  
+    return new Response("Hello, World!");
+}
+
+serve(handler);
+
+// const server = Deno.listen( {port: 8000 });
