@@ -4,6 +4,13 @@ This project is made by following this <a href="shorturl.at/ozCHP">tutorial</a>.
 <p>
 Some updates and changes are made since the tutorial is made before the official deno release or with one of the most earliest deno version, and some modules also have been changed since then.
 </p>
+<p>
+Install deno by following the instructions <a href="https://deno.land/#installation">here</a>
+<br>
+Clone or download the project and just run this command to start the server
+<br> 
+<span>deno run --allow-net --allow-read app.ts</span>
+</p>
 <br>
 <h4>Lock modules</h4>
 <p>
