@@ -1,34 +1,42 @@
-import { serve } from "./moduledeps.ts";
+import { Application, Router } from "./moduledeps.ts";
 
-// serve((req: Request) => new Response(req.url));
+const app = new Application();
+const router = new Router();
 
-async function handler(req: Request): Promise<Response> {
-    const url = new URL(req.url);
+router
+    .get('/', async(ctx, next)=>{
+        try{
+          await ctx.send({
+            root: `${Deno.cwd()}/public`,
+            index: "index.html"            
+          });
+        }catch{
+          await next();
+        }
+    });
 
-    console.log("Path:", url);
-  
-    if(url.pathname==='/styling/style.css'){
-        const styleFile = await Deno.readFile("./public/styling/style.css");
-        return new Response(styleFile,{
-            headers:{
-                "content-type": "text/css",
-            }
-        });
-    }
+// app.use(async (ctx, next) => {
+//     try{
+//         await ctx.send({
+//             root: `${Deno.cwd()}/public`,
+//             index:"index.html",
+//         });
+//     }catch{
+//         await next();
+//     }
+// });
 
-    if(url.pathname === '/'){
-        const file = await Deno.readFile("./public/index.html");
-        return new Response(file,{
-            status: 200,
-            headers: {
-                "content-type": "text/html"
-            }
-        });
-    }
-  
-    return new Response("Hello, World!");
-}
 
-serve(handler);
+// router
+//     .get('/', ctx => {
+//          ctx.response.body = `ctx: ${ctx.request.url.pathname}`;
+//     });
 
-// const server = Deno.listen( {port: 8000 });
+app.use(router.routes());
+app.use(router.allowedMethods());
+
+// app.use(async (ctx, next)=>{
+//     console.log('ctx: ', ctx);
+// });
+
+await app.listen({port:8000});
