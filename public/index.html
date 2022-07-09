@@ -34,9 +34,32 @@
         </form>
     </div>
     </div>
-    <script>
-        // new websocket connection
-        let ws = new WebSocket('ws://localhost:8000/ws');
-    </script>
+<script>
+    // new websocket connection
+    let ws = new WebSocket('ws://localhost:8000/ws');
+
+    const nameForm = document.querySelector('.name-form');
+    const chatRoom = document.querySelector('.chatroom');
+    const chatList = document.querySelector('.chat-list');
+    const chatForm = document.querySelector('.chat-form');
+
+    let name = 'anon';
+
+    // enter chat with name
+    nameForm.addEventListener('submit', (e) => {
+        e.preventDefault(); // prevent the default which is refresh the page
+        name = nameForm.nickname.value;
+        nameForm.classList.add('hidden');
+        chatRoom.classList.remove('hidden');
+    });
+
+    // send new chat message
+    chatForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        let messg = chatForm.message.value;
+
+        ws.send(JSON.stringify({ name: name, message: messg }));
+    });
+</script>
 </body>
 </html>

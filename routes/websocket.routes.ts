@@ -6,19 +6,21 @@ const runWS = async (ctx: Context, next: () => Promise<unknown>) => {
     //     ctx.throw(501);
     // }
 
-    const ws = ctx.upgrade();
+    try{
+        const ws = await ctx.upgrade();
 
-    ws.onopen = () => {
-        chatConnection(ws);
-    };
+        ws.onopen = () => {
+            chatConnection(ws);
+        };
 
-    // ws.onmessage = (m) => {
-    //     console.log('Got message from client: ', m.data);
-    //     ws.send(m.data as string);
-    //     ws.close();
-    // };
+        // ws.onmessage = (m) => {
+        //     console.log('Got message from client: ', m.data);
+        //     ws.send(m.data as string);
+        //     ws.close();
+        // };
 
-    ws.onclose = () => { console.log('Disconnected from the slient!');};
+        ws.onclose = () => { console.log('Disconnected from the slient!');};
+    }catch{await next();}
 }
 
 export const wsRoutes = new Router()
