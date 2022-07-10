@@ -1,25 +1,29 @@
 import { Router, Context, send } from "../moduledeps.ts";
-import { chatConnection } from "../ws/chatroom.ts";
+import { chatConnection, chatMessage } from "../ws/chatroom.ts";
 
 const runWS = async (ctx: Context, next: () => Promise<unknown>) => {
-    // if(!ctx.isUpgradeable){
-    //     ctx.throw(501);
-    // }
+    if(!ctx.isUpgradable){
+        ctx.throw(501);
+    }
 
     try{
+        console.log('ctx: ', ctx);
         const ws = await ctx.upgrade();
 
         ws.onopen = () => {
+            console.log('ws: ', ws);
             chatConnection(ws);
         };
 
-        // ws.onmessage = (m) => {
-        //     console.log('Got message from client: ', m.data);
-        //     ws.send(m.data as string);
-        //     ws.close();
-        // };
+        ws.onmessage = (m) => {
+            let mssg = m.data as string;
+            if(typeof(mssg) === 'string'){
+                chatMessage(JSON.parse(mssg));
+            }
+            // ws.close();
+        };
 
-        ws.onclose = () => { console.log('Disconnected from the slient!');};
+        ws.onclose = (e) => { console.log('Disconnected from the client!', e.code);};
     }catch{await next();}
 }
 
