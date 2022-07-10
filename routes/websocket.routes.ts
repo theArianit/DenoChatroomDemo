@@ -1,18 +1,18 @@
-import { Router, Context, send } from "../moduledeps.ts";
-import { chatConnection, chatMessage } from "../ws/chatroom.ts";
+import { Router, Context } from "../moduledeps.ts";
+import { chatConnection, chatMessage, chatDisconnect } from "../ws/chatroom.ts";
 
 const runWS = async (ctx: Context, next: () => Promise<unknown>) => {
     if(!ctx.isUpgradable){
         ctx.throw(501);
     }
 
+    const uid = globalThis.crypto.randomUUID();
+
     try{
-        console.log('ctx: ', ctx);
         const ws = await ctx.upgrade();
 
         ws.onopen = () => {
-            console.log('ws: ', ws);
-            chatConnection(ws);
+            chatConnection(ws, uid);
         };
 
         ws.onmessage = (m) => {
@@ -23,7 +23,7 @@ const runWS = async (ctx: Context, next: () => Promise<unknown>) => {
             // ws.close();
         };
 
-        ws.onclose = () => { console.log('Client Disconnected!');};
+        ws.onclose = () => { chatDisconnect(uid); };
     }catch{await next();}
 }
 
