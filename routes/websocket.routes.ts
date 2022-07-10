@@ -23,6 +23,8 @@ const runWS = async (ctx: Context, next: () => Promise<unknown>) => {
             // ws.close();
         };
 
+        ws.onerror = (e) => {console.log('error occured: ', e);};
+
         ws.onclose = () => { chatDisconnect(uid); };
     }catch{await next();}
 }
