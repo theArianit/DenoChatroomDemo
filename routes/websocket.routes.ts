@@ -23,7 +23,7 @@ const runWS = async (ctx: Context, next: () => Promise<unknown>) => {
             // ws.close();
         };
 
-        ws.onclose = (e) => { console.log('Disconnected from the client!', e.code);};
+        ws.onclose = () => { console.log('Client Disconnected!');};
     }catch{await next();}
 }
 

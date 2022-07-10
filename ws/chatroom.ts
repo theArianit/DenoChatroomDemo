@@ -17,12 +17,10 @@ const chatConnection = async (ws: WebSocket/*, ctx: Context*/) => {
 }
 
 const chatMessage = async (msg: BroadcastObj) => {
-    console.log('chatMessage: ', msg);
-    
+    console.log('chatMessage: ', msg);    
     await sockets.forEach((ws: WebSocket) => {
-        console.log('chatMEssage ws: ',ws);
         ws.send(JSON.stringify(msg));
-    })
+    });
     //await ws.send(msg);    
 }
 
