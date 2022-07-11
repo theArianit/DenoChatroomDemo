@@ -59,6 +59,7 @@
         let messg = chatForm.message.value;
 
         ws.send(JSON.stringify({ name: name, message: messg }));
+        chatForm.reset();
     });
 
     // output event to DOM
