@@ -27,3 +27,9 @@ Compare/Check the lock file keys: deno cache --reload (optional to force deno) -
 <br>
 example: deno cache --reload --lock=lock.json moduledeps.ts
 </p>
+<br>
+<h4>Integrated test</h4>
+<p>
+command: <span>deno test</span>
+</p>
+<p>In this case a *.test.js/ts file is required. Example to follow</p>
