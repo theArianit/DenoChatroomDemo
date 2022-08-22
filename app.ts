@@ -1,4 +1,4 @@
-import { Application } from "./moduledeps.ts";
+import { Application } from "oak";
 import { setupRoutes } from "./routes/setup.routes.ts";
 import { wsRoutes } from "./routes/websocket.routes.ts";
 

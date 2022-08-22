@@ -1,4 +1,4 @@
-import { Router, Context } from "../moduledeps.ts";
+import { Router, Context } from "oak";
 import { chatConnection, chatMessage, chatDisconnect } from "../ws/chatroom.ts";
 
 const runWS = async (ctx: Context, next: () => Promise<unknown>) => {
